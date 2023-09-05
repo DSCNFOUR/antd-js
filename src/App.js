@@ -1,30 +1,20 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import Home from './Home';
-import About from './About';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import CustomLayout from './components/Layout';
+import Home from './components/Home';
+import Info from './components/Info';
 
 function App() {
+
     return (
         <Router>
-            <div>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/about">About</Link>
-                        </li>
-                    </ul>
-                </nav>
-
+            <CustomLayout>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/about" element={<About />} />
+                    <Route path="/info" element={<Info />} />
                 </Routes>
-            </div>
+            </CustomLayout>
         </Router>
     );
 }
-
 export default App;

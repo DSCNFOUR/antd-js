@@ -145,6 +145,7 @@ Basic Requirements: I want to have two components as `home` and `about`
     ```
 3. Create `App.js` for Routing - **Main Application Component**
     ```jsx
+    //App.js
     import React from 'react';
     import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
     import Home from './Home';
@@ -179,6 +180,7 @@ Basic Requirements: I want to have two components as `home` and `about`
 4. `index.js` - Entry Point
     Modify your `index.js` to import and render the `App` component instead of rendering individual components directly:
     ```jsx
+    //index.js
     import React from "react";
     import {createRoot} from "react-dom/client";
     import 'antd/dist/reset.css'
@@ -187,4 +189,114 @@ Basic Requirements: I want to have two components as `home` and `about`
 
     const root = createRoot(document.getElementById("root"));
     root.render(<App/>);
+    ```
+
+## Refactor route with components
+
+We want to re-use layout for all of our pages. Simple layout as below:
+
+```txt
+====================================
+++++++++++++++ header ++++++++++++++    =>  all pages use the same header
+====================================
+++++++++++++++ content++++++++++++++    =>  Can change to any other components
+====================================
+++++++++++++++ footer ++++++++++++++    =>  all pages use the same footer
+====================================
+```
+
+Therefore, we can change the project folder from:
+
+- Updated directory:
+    ```txt
+    my-react-app/
+    ├── src/
+    │    ├── About.js
+    │    ├── App.js
+    │    ├── Home.js
+    │    ├── index.css
+    │    ├── index.js
+    ├── public/
+    │    ├── index.html
+    ```
+- Refactor route with components
+    ```txt
+    my-react-app/
+    ├── components/
+    │    ├── Home.js
+    │    ├── Info.js (it is changed from About.js)
+    │    ├── Layout.js
+    ├── src/
+    │    ├── App.js
+    │    ├── index.css
+    │    ├── index.js
+    ├── public/
+    │    ├── index.html
+    ```
+1. Move `src/Home.js` to `src/components/Home.js`
+2. Move `src/About.js` to `src/components/Info.js`
+3. Create `src/components/ILayout.js`
+    ```jsx
+    //Layout.js
+    import React from `react`;
+    import {Layout, Menu} from `antd`;
+    import {HomeOutlined, AppstoreAddOutlined } from `@ant-design/icons`;
+    
+    const {Header, Content, Footer} = Layout;
+
+    const menuItems = [
+        {key:"home", icon: <HomeOutlined />, label: "Home"},
+        {key:"info", icon: <AppStoreOutlined />, label: "Info"},
+    ];
+
+    const CustomLayout = ({children}) => {
+        const handleMenuClick = (e) => {
+            switch(e.key) {
+                case 'home':
+                    window.location.href = '/';
+                    break;
+                case 'info':
+                    window.location.href = '/info';
+                    break;
+                default:
+                    break;
+            }
+        };
+        return (
+            <Layout>
+                <Header style={{display: 'flex', alignItems: 'center'}}>
+                    <Menu theme="dark" mode="horizontal" onClick={handleMenuClick} item={menuItems}/>
+                </Header>
+
+                <Content style={{padding: '0 50px'}}>{children}</Content>
+
+                <Footer style={{textAlign: 'center'}}>Design@2023</Footer>
+            </Layout>
+        )
+    };
+
+    export default CustomLayout;
+    ```
+4. Update `src/App.js` by using `CustomLayout` component
+    ```jsx
+    //App.js
+    import React from 'react';
+    import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+    import CustomLayout from './components/Layout';
+    import Home from './components/Home';
+    import Info from './components/Info';
+
+    function App(){
+        return (
+            <Router>
+                <CustomLayout>
+                    <Routes>
+                        <Route path="/" element={<Home/>}/>
+                        <Route path="/info" element={<Info />}/>
+                    <Routes>
+                <CustomLayout>
+            </Router>
+        );
+    }
+    export default App;
     ```
