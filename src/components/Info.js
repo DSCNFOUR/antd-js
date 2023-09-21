@@ -1,10 +1,11 @@
+// components/Info.js
 import React from 'react';
+import TemplateEditableTable from './TemplateEditableTable';
 
 const Info = () => {
     return(
         <div>
-            <h2>Info Page Content</h2>
-            <p>This is Info Content</p>
+           <TemplateEditableTable/>
         </div>
     );
 }

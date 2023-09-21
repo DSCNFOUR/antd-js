@@ -4,7 +4,9 @@
   "description": "",
   "dependencies": {
     "antd": "^5.8.5",
+    "axios": "^1.5.0",
     "dayjs": "latest",
+    "express": "^4.18.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
@@ -18,5 +20,17 @@
   },
   "keywords": [],
   "author": "Shimin",
-  "license": "ISC"
+  "license": "ISC",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

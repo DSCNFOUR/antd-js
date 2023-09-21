@@ -1,3 +1,4 @@
+// components/Layout.js
 import React from 'react';
 import { Layout, Menu } from 'antd';
 import { HomeOutlined, AppstoreAddOutlined } from '@ant-design/icons';

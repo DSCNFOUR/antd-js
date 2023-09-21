@@ -235,7 +235,7 @@ Therefore, we can change the project folder from:
     ```
 1. Move `src/Home.js` to `src/components/Home.js`
 2. Move `src/About.js` to `src/components/Info.js`
-3. Create `src/components/ILayout.js`
+3. Create `src/components/Layout.js`
     ```jsx
     //Layout.js
     import React from `react`;
@@ -300,3 +300,7 @@ Therefore, we can change the project folder from:
     }
     export default App;
     ```
+## Add `EditableTable.js` component
+
+
+
